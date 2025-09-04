@@ -24,12 +24,12 @@ form {
 .contactListArticle{
   display: flex;
     align-items: center;
- max-width: 250px;
+ max-width: 300px;
  background-color: rgb(250, 235, 216);
  padding: 10px;
 }
 
-.contactListArticle:hover{
+.contactListArticle h4:hover{
     cursor: pointer;
 }
 
@@ -46,7 +46,27 @@ header {
   padding-left: 50px;
   padding-right: 100px;
 }
+.editButton{
+  margin-left: auto;
+  margin-right: 0;
+  padding: 5px 10px;
+  border-width: 1px;
+  border-radius: 5px;
+}
+.editButton:hover{
+  background-color: rgb(190, 190, 190);
+}
 
 .removeButton{
-  margin-left: auto;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-width: 1px;
+  border-radius: 5px;
+}
+.removeButton:hover{
+  background-color: rgb(233, 148, 148);
+}
+
+.searchWrapper {
+  margin: 15px;
 }

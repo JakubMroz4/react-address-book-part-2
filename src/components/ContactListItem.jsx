@@ -39,6 +39,7 @@ function ContactListItem({ contact }) {
         <h4 onClick={handleClick}>
           {contact.firstName} {contact.lastName}{" "}
         </h4>
+        <button className="editButton">Edit</button>
         <button onClick={handleRemove} className="removeButton">
           X
         </button>
