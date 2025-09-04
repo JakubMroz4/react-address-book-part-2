@@ -1,8 +1,10 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import Dashboard from "./components/Dashboard";
 import ContactView from "./components/ContactView";
+import ContactForm from "./components/ContactForm";
 
 export const ApiContext = createContext();
 
@@ -24,15 +26,32 @@ function App() {
     console.log("DATA", data);
   }, [data]);
 
+  const navigate = useNavigate();
+
+  const handleNewContact = () => {
+    navigate(`/new`);
+  };
+
+  const handleMenu = () => {
+    navigate(`/`);
+  };
+
   return (
     <>
       <ApiContext.Provider value={{ data, isLoading }}>
         <header>
-          <h1>Address book</h1>
+          <h1 onClick={handleMenu} className="menuLink">
+            Address book
+          </h1>
+          <h2 onClick={handleNewContact} className="menuLink">
+            Create a new contact
+          </h2>
         </header>
 
         <Routes>
           <Route path="/" element={<Dashboard />} />
+
+          <Route path="/new" element={<ContactForm />} />
 
           <Route path="/contact/:id" element={<ContactView />} />
         </Routes>

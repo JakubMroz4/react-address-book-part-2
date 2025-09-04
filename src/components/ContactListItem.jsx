@@ -12,7 +12,7 @@ function ContactListItem({ contact }) {
     <div>
       <article className="contactListArticle" onClick={handleClick}>
         <h4>
-          {contact.firstName} {contact.lastName}
+          {contact.firstName} {contact.lastName} <button>X</button>
         </h4>
       </article>
     </div>

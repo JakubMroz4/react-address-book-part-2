@@ -1,7 +1,181 @@
 import React from "react";
+import { useState } from "react";
 
 function ContactForm() {
-  return <div>ContactForm</div>;
+  const createUserUrl =
+    "https://boolean-uk-api-server.fly.dev/JakubMroz4/contact";
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    street: "",
+    city: "",
+    gender: "",
+    email: "",
+    jobTitle: "",
+    latitude: "",
+    longitude: "",
+    favouriteColour: "",
+    profileImage:
+      "https://www.gravatar.com/avatar/sdfa@fasdf.com?s=120&d=identicon",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("POST content", JSON.stringify({ formData }));
+      const response = await fetch(createUserUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ formData }),
+      });
+
+      const result = await response.json();
+      console.log("Server response:", result);
+    } catch (error) {
+      console.error("Error creating contact:", error);
+    }
+  };
+
+  return (
+    <div>
+      <form>
+        <fieldset>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+            className="textInputShort"
+          />
+
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+            className="textInputShort"
+          />
+        </fieldset>
+
+        <fieldset className="fieldsetVertical">
+          <input
+            type="text"
+            name="street"
+            value={formData.street}
+            onChange={handleChange}
+            placeholder="Street"
+            className="textInputLong"
+          />
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            placeholder="City"
+            className="textInputLong"
+          />
+        </fieldset>
+
+        <fieldset>
+          <legend>Gender:</legend>
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="Male"
+              checked={formData.gender === "Male"}
+              onChange={handleChange}
+            />
+            Male
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="Female"
+              checked={formData.gender === "Female"}
+              onChange={handleChange}
+            />
+            Female
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="gender"
+              value="Other"
+              checked={formData.gender === "Other"}
+              onChange={handleChange}
+            />
+            Other
+          </label>
+        </fieldset>
+
+        <fieldset className="fieldsetVertical">
+          <input
+            type="text"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="textInputShort"
+          />
+
+          <input
+            type="text"
+            name="jobTitle"
+            value={formData.jobTitle}
+            onChange={handleChange}
+            placeholder="Job Title"
+            className="textInputShort"
+          />
+
+          <input
+            type="text"
+            name="latitude"
+            value={formData.latitude}
+            onChange={handleChange}
+            placeholder="Latitude"
+            className="textInputShort"
+          />
+
+          <input
+            type="text"
+            name="longitude"
+            value={formData.longitude}
+            onChange={handleChange}
+            placeholder="Longitude"
+            className="textInputShort"
+          />
+
+          <input
+            type="text"
+            name="favouriteColour"
+            value={formData.favouriteColour}
+            onChange={handleChange}
+            placeholder="Favourite Colour"
+            className="textInputShort"
+          />
+        </fieldset>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
 }
 
 export default ContactForm;

@@ -20,7 +20,7 @@ function ContactView() {
   }, []);
 
   useEffect(() => {
-    console.log("DATA", contact);
+    console.log("CONTACT", contact);
   }, [contact]);
 
   if (isLoading) return <div></div>;
