@@ -30,7 +30,7 @@ function ContactListItem({ contact }) {
         console.error("error:", err);
       });
     navigate("/");
-    refreshData();
+    setTimeout(refreshData, 300);
   };
 
   const handleEdit = () => {

@@ -10,6 +10,7 @@ function ContactView() {
   const [contact, setContact] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { refreshData } = useContext(ApiContext);
 
   useEffect(() => {
     fetch(fetchUserUrl + id)
@@ -30,6 +31,27 @@ function ContactView() {
     navigate("/edit/" + contact.id);
   };
 
+  const handleRemove = () => {
+    fetch(fetchUserUrl + contact.id, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("fail response");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("success response:", data);
+      })
+      .catch((err) => {
+        console.error("error:", err);
+      });
+
+    navigate("/");
+    setTimeout(refreshData, 300);
+  };
+
   return (
     <div className="contactView">
       <h3>
@@ -48,6 +70,9 @@ function ContactView() {
 
       <button onClick={handleEdit} className="editButton">
         Edit
+      </button>
+      <button onClick={handleRemove} className="removeButton">
+        Remove
       </button>
     </div>
   );
