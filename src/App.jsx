@@ -5,6 +5,7 @@ import { useState, useEffect, createContext } from "react";
 import Dashboard from "./components/Dashboard";
 import ContactView from "./components/ContactView";
 import ContactForm from "./components/ContactForm";
+import ContactEditForm from "./components/ContactEditForm";
 
 export const ApiContext = createContext();
 
@@ -62,7 +63,9 @@ function App() {
 
           <Route path="/new" element={<ContactForm />} />
 
-          <Route path="/contact/:id" element={<ContactView />} />
+          <Route path="/view/:id" element={<ContactView />} />
+
+          <Route path="/edit/:id" element={<ContactEditForm />} />
         </Routes>
       </ApiContext.Provider>
     </>

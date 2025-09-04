@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import { ApiContext } from "../App";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ContactView() {
   const fetchUserUrl =
@@ -9,6 +9,7 @@ function ContactView() {
   const { id } = useParams();
   const [contact, setContact] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(fetchUserUrl + id)
@@ -25,6 +26,10 @@ function ContactView() {
 
   if (isLoading) return <div></div>;
 
+  const handleEdit = () => {
+    navigate("/edit/" + contact.id);
+  };
+
   return (
     <div className="contactView">
       <h3>
@@ -40,6 +45,10 @@ function ContactView() {
       <p>
         {contact.latitude}, {contact.longitude}
       </p>
+
+      <button onClick={handleEdit} className="editButton">
+        Edit
+      </button>
     </div>
   );
 }

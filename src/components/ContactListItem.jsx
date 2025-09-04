@@ -10,7 +10,7 @@ function ContactListItem({ contact }) {
   const { refreshData } = useContext(ApiContext);
 
   const handleClick = () => {
-    navigate(`/contact/${contact.id}`);
+    navigate(`/view/${contact.id}`);
   };
 
   const handleRemove = () => {
@@ -19,18 +19,22 @@ function ContactListItem({ contact }) {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to delete");
+          throw new Error("fail response");
         }
-        return res.json(); // or res.text() if no JSON response
+        return res.json();
       })
       .then((data) => {
-        console.log("Deleted successfully:", data);
+        console.log("success response:", data);
       })
       .catch((err) => {
-        console.error("Error:", err);
+        console.error("error:", err);
       });
     navigate("/");
     refreshData();
+  };
+
+  const handleEdit = () => {
+    navigate("edit/" + contact.id);
   };
 
   return (
@@ -39,7 +43,9 @@ function ContactListItem({ contact }) {
         <h4 onClick={handleClick}>
           {contact.firstName} {contact.lastName}{" "}
         </h4>
-        <button className="editButton">Edit</button>
+        <button onClick={handleEdit} className="editButton">
+          Edit
+        </button>
         <button onClick={handleRemove} className="removeButton">
           X
         </button>
