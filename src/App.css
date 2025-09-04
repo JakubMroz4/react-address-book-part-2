@@ -15,10 +15,18 @@ form {
   gap: 1rem;
 }
 
+.contactListItem {
+  margin: 10px;
+  padding: 0;
+  border: 0;
+}
+
 .contactListArticle{
+  display: flex;
     align-items: center;
  max-width: 250px;
  background-color: rgb(250, 235, 216);
+ padding: 10px;
 }
 
 .contactListArticle:hover{
@@ -37,4 +45,8 @@ header {
   background-color: rgb(233, 208, 176);
   padding-left: 50px;
   padding-right: 100px;
+}
+
+.removeButton{
+  margin-left: auto;
 }

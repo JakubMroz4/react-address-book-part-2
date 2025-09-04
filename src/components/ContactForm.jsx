@@ -1,5 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ApiContext } from "../App";
 
 function ContactForm() {
   const createUserUrl =
@@ -12,32 +15,35 @@ function ContactForm() {
     gender: "",
     email: "",
     jobTitle: "",
-    latitude: "",
-    longitude: "",
+    latitude: 0,
+    longitude: 0,
     favouriteColour: "",
     profileImage:
       "https://www.gravatar.com/avatar/sdfa@fasdf.com?s=120&d=identicon",
   });
 
+  const { refreshData } = useContext(ApiContext);
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
+    const { name, value, type } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "number" ? Number(value) : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("POST content", JSON.stringify(formData));
 
     try {
-      console.log("POST content", JSON.stringify({ formData }));
       const response = await fetch(createUserUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ formData }),
+        body: JSON.stringify(formData),
       });
 
       const result = await response.json();
@@ -45,11 +51,14 @@ function ContactForm() {
     } catch (error) {
       console.error("Error creating contact:", error);
     }
+
+    navigate("/");
+    refreshData();
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <fieldset>
           <input
             type="text"
@@ -145,21 +154,25 @@ function ContactForm() {
           />
 
           <input
-            type="text"
+            type="number"
             name="latitude"
             value={formData.latitude}
             onChange={handleChange}
             placeholder="Latitude"
             className="textInputShort"
+            min="-90"
+            max="90"
           />
 
           <input
-            type="text"
+            type="number"
             name="longitude"
             value={formData.longitude}
             onChange={handleChange}
             placeholder="Longitude"
             className="textInputShort"
+            min="-180"
+            max="180"
           />
 
           <input

@@ -12,15 +12,24 @@ function App() {
   const apiUrl = "https://boolean-uk-api-server.fly.dev/JakubMroz4/contact";
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [refresh, setRefresh] = useState(0);
 
-  useEffect(() => {
+  const refreshData = () => {
+    setRefresh(refresh + 1);
+  };
+
+  const fetchData = () => {
     fetch(apiUrl)
       .then((res) => res.json())
       .then((result) => {
         setData(result);
         setIsLoading(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [refresh]);
 
   useEffect(() => {
     console.log("DATA", data);
@@ -38,7 +47,7 @@ function App() {
 
   return (
     <>
-      <ApiContext.Provider value={{ data, isLoading }}>
+      <ApiContext.Provider value={{ data, isLoading, refreshData }}>
         <header>
           <h1 onClick={handleMenu} className="menuLink">
             Address book
