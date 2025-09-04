@@ -26,13 +26,19 @@ function ContactView() {
   if (isLoading) return <div></div>;
 
   return (
-    <div>
+    <div className="contactView">
       <h3>
         {contact.firstName} {contact.lastName}
       </h3>
+      <p>{contact.gender}</p>
+
+      <img src={contact.profileImage} />
       <h5>{contact.jobTitle}</h5>
       <p>
         {contact.street}, {contact.city}
+      </p>
+      <p>
+        {contact.latitude}, {contact.longitude}
       </p>
     </div>
   );

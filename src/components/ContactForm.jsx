@@ -57,7 +57,7 @@ function ContactForm() {
   };
 
   return (
-    <div>
+    <div className="formWrapper">
       <form onSubmit={handleSubmit}>
         <fieldset>
           <input
@@ -152,25 +152,32 @@ function ContactForm() {
             placeholder="Job Title"
             className="textInputShort"
           />
-
+          <label htmlFor="latitude" className="formLabel">
+            Latitude:
+          </label>
           <input
             type="number"
             name="latitude"
+            id="latitude"
             value={formData.latitude}
             onChange={handleChange}
             placeholder="Latitude"
-            className="textInputShort"
+            className="textInputNumber"
             min="-90"
             max="90"
           />
 
+          <label htmlFor="longitude" className="formLabel">
+            Longitude:
+          </label>
           <input
             type="number"
             name="longitude"
+            id="longitude"
             value={formData.longitude}
             onChange={handleChange}
             placeholder="Longitude"
-            className="textInputShort"
+            className="textInputNumber"
             min="-180"
             max="180"
           />
